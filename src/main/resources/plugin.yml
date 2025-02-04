@@ -1,0 +1,11 @@
+name: LadderBuilder
+main: com.eatsleepcode.ladderbuilder.LadderBuilder
+version: 2025.02.03.22
+api: [1.0.11]
+author: eat-sleep-code
+description: Build a lighted ladder shaft descending to the specified depth coordinate.
+commands:
+  ladder:
+    description: Build a lighted ladder shaft descending to the specified depth coordinate.
+    usage: /ladder <depth>
+    permission: ladder.create
