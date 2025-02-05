@@ -16,7 +16,7 @@ Build a lighted ladder shaft descending to the specified depth coordinate.
 
 ## Known Issues
 
-- When gravel, sand, or water is found within the ladder area it can sometimes overwhelm the creation of the ladder shaft.   This will result in some debris that needs to be cleaned up. 
+- Gravel, sand, or water found within the build area can potentially overwhelm the creation of the ladder shaft.   This would result in some debris that needs to be cleaned up. 
 
 ## Building Project
 

@@ -54,7 +54,7 @@ public class LadderBuilder extends PluginBase {
 			
 			buildLadder(level, player, start, getPlayerDirection(player), targetY);
 
-			player.sendMessage(TextFormat.GREEN + "Stairs built successfully");
+			player.sendMessage(TextFormat.GREEN + "Ladder built successfully");
 			return true;
         }
         return false;
@@ -77,25 +77,43 @@ public class LadderBuilder extends PluginBase {
 					}
 	
 					// Clear the room
-					level.setBlock(blockPos, Block.get(Block.AIR), true);
+					level.setBlock(blockPos, Block.get(Block.AIR), true, true);
 	
 					// Build outer walls and floor
 					if (y == depth || x == -1 || x == 1 || z == 0 || z == 3) {
-						level.setBlock(blockPos, Block.get(Block.STONE), true);
+						level.setBlock(blockPos, Block.get(Block.STONE), true, true);
 					}
 	
 					// Build ladder
 					else if (x == 0 && (z == 2) && y > depth) {
-							level.setBlock(blockPos, Block.get(Block.LADDER), true);
+						level.setBlock(blockPos, Block.get(Block.AIR), true, true);
+						Block ladder = Block.get(Block.LADDER);
+						switch (direction) {
+							case "north":
+								ladder.setDamage(3);
+								break;
+							case "south":
+								ladder.setDamage(2);
+								break;
+							case "east":
+								ladder.setDamage(4);
+								break;
+							case "west":
+								ladder.setDamage(5);
+								break;
+						}
+						this.getServer().getScheduler().scheduleDelayedTask(this, () -> {
+							level.setBlock(blockPos, ladder, true, true);
+						}, 1);
 					}
 
 					// Fill with air
 					else {
-						level.setBlock(blockPos, Block.get(Block.AIR), true);
+						level.setBlock(blockPos, Block.get(Block.AIR), true, true);
 					}
 
 					if (x == 0 && z == 0 && y < start.y && (y % 20 == 0)) {
-						level.setBlock(blockPos, Block.get(Block.SEA_LANTERN), true);
+						level.setBlock(blockPos, Block.get(Block.SEA_LANTERN), true, true);
 					}
 				}
 			}
@@ -119,7 +137,6 @@ public class LadderBuilder extends PluginBase {
 				return new Vector3(start.x + x, y, start.z + z); // Default to south
 		}
 	}
-
 
 
     private String getPlayerDirection(Player player) {
